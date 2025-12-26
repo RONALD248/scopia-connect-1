@@ -14,324 +14,404 @@ import {
   Globe,
   Award,
   TrendingUp,
-  Play
+  Play,
+  Truck,
+  Home,
+  Building2,
+  Package,
+  Navigation,
+  Phone,
+  MessageCircle,
+  ChevronRight
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Index = () => {
   const fadeUp = {
-    initial: { opacity: 0, y: 20 },
+    initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5 }
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
   };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const services = [
+    {
+      id: "cleaning",
+      icon: Sparkles,
+      title: "Cleaning Services",
+      description: "Professional cleaners for homes, offices & industrial spaces",
+      color: "from-primary to-primary-glow",
+      providers: "5,000+",
+      features: ["Domestic", "Commercial", "Industrial", "Specialized"]
+    },
+    {
+      id: "moving",
+      icon: Truck,
+      title: "Moving Services",
+      description: "Reliable movers for local & long-distance relocations",
+      color: "from-secondary to-orange-400",
+      providers: "2,500+",
+      features: ["Local Moving", "Long Distance", "Packing", "Storage"]
+    }
+  ];
+
+  const stats = [
+    { value: "100K+", label: "Happy Customers", icon: Users },
+    { value: "7,500+", label: "Verified Providers", icon: Shield },
+    { value: "500K+", label: "Jobs Completed", icon: CheckCircle2 },
+    { value: "4.9", label: "Average Rating", icon: Star, suffix: "★" }
+  ];
+
+  const features = [
+    {
+      icon: Navigation,
+      title: "GPS-Powered Matching",
+      description: "Find providers near you instantly with real-time location tracking and smart distance algorithms",
+      gradient: "from-primary to-primary-glow"
+    },
+    {
+      icon: Shield,
+      title: "Verified Professionals",
+      description: "Every provider is background-checked, trained, and rated by real customers",
+      gradient: "from-accent to-purple-500"
+    },
+    {
+      icon: Zap,
+      title: "Instant Booking",
+      description: "Book now or schedule ahead. Get confirmation in under 60 seconds",
+      gradient: "from-secondary to-orange-400"
+    },
+    {
+      icon: Award,
+      title: "Quality Guarantee",
+      description: "Not satisfied? Get a free re-service or full refund. No questions asked",
+      gradient: "from-success to-emerald-400"
+    }
+  ];
+
+  const howItWorks = [
+    {
+      step: "01",
+      title: "Tell Us What You Need",
+      description: "Select cleaning or moving services and share your requirements",
+      icon: MessageCircle
+    },
+    {
+      step: "02",
+      title: "Get Matched Instantly",
+      description: "Our GPS system finds the best providers near your location",
+      icon: MapPin
+    },
+    {
+      step: "03",
+      title: "Book & Track Live",
+      description: "Confirm your booking and track your provider in real-time",
+      icon: Navigation
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
+      <nav className="fixed top-0 left-0 right-0 z-50 glass">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-md">
-              <Sparkles className="w-5 h-5 text-primary-foreground" />
+          <Link to="/" className="flex items-center gap-3">
+            <div className="relative">
+              <div className="w-11 h-11 rounded-2xl bg-gradient-primary flex items-center justify-center shadow-glow">
+                <Sparkles className="w-6 h-6 text-primary-foreground" />
+              </div>
+              <div className="absolute -inset-1 rounded-2xl bg-gradient-primary opacity-30 blur-lg -z-10" />
             </div>
-            <span className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            <span className="text-2xl font-bold font-display gradient-text">
               SCOPIA
             </span>
-          </div>
+          </Link>
+          
           <div className="hidden md:flex items-center gap-8">
-            <Link to="/search" className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors">
+            <Link to="/search" className="text-sm font-medium text-muted-foreground hover:text-foreground animated-underline transition-colors">
               Find Services
             </Link>
-            <Link to="/providers" className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors">
+            <Link to="/providers" className="text-sm font-medium text-muted-foreground hover:text-foreground animated-underline transition-colors">
               Become a Provider
             </Link>
-            <Link to="/about" className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors">
+            <Link to="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-foreground animated-underline transition-colors">
               How It Works
             </Link>
           </div>
+          
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" asChild>
+            <Button variant="ghost" size="sm" asChild className="font-medium">
               <Link to="/login">Sign In</Link>
             </Button>
-            <Button asChild className="bg-gradient-primary hover:opacity-90 transition-opacity shadow-md" size="sm">
-              <Link to="/search">Get Started</Link>
+            <Button asChild size="sm" className="bg-gradient-primary hover:opacity-90 shadow-lg hover:shadow-glow transition-all duration-300 font-medium">
+              <Link to="/search">
+                Get Started
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
             </Button>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-28 pb-20 px-4 relative">
-        {/* Background Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
-        </div>
+      <section className="pt-32 pb-24 px-4 relative overflow-hidden">
+        {/* Mesh Gradient Background */}
+        <div className="absolute inset-0 mesh-gradient opacity-60" />
+        
+        {/* Animated Blobs */}
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-3xl animate-pulse-glow" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute top-1/2 right-1/3 w-[300px] h-[300px] bg-secondary/10 rounded-full blur-3xl" />
 
         <div className="container mx-auto relative">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div {...fadeUp}>
-              <Badge className="mb-6 bg-accent border-0 text-accent-foreground px-4 py-2">
+          <motion.div 
+            className="max-w-4xl mx-auto text-center"
+            initial="initial"
+            animate="animate"
+            variants={staggerContainer}
+          >
+            <motion.div variants={fadeUp}>
+              <Badge className="mb-6 bg-primary/10 border-primary/20 text-primary px-4 py-2 text-sm font-medium">
                 <Globe className="w-4 h-4 mr-2" />
-                GPS-Powered Smart Matching
+                GPS-Powered Smart Matching — Now Live
               </Badge>
-              
-              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-[1.1] tracking-tight">
-                Professional
-                <span className="block bg-gradient-primary bg-clip-text text-transparent">Cleaning Services</span>
-                <span className="block">Near You</span>
-              </h1>
-              
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-xl">
-                Connect instantly with verified cleaning professionals using our advanced location-based matching system. Real-time tracking, secure payments, and guaranteed quality.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 mb-10">
-                <Button size="lg" asChild className="bg-gradient-primary hover:opacity-90 text-base px-8 h-14 shadow-lg group">
-                  <Link to="/search">
-                    Find Cleaners Near Me
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild className="text-base px-8 h-14 border-2 group">
-                  <Link to="/providers">
-                    <Play className="mr-2 w-5 h-5" />
-                    See How It Works
-                  </Link>
-                </Button>
-              </div>
-              
-              {/* Trust Indicators */}
-              <div className="flex items-center gap-8 pt-4 border-t border-border/50">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-foreground">50K+</div>
-                  <div className="text-xs text-muted-foreground uppercase tracking-wider">Users</div>
-                </div>
-                <div className="h-10 w-px bg-border" />
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-foreground">5K+</div>
-                  <div className="text-xs text-muted-foreground uppercase tracking-wider">Providers</div>
-                </div>
-                <div className="h-10 w-px bg-border" />
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-foreground flex items-center gap-1">
-                    4.9 <Star className="w-5 h-5 fill-secondary text-secondary" />
-                  </div>
-                  <div className="text-xs text-muted-foreground uppercase tracking-wider">Rating</div>
-                </div>
-              </div>
             </motion.div>
             
-            {/* Hero Visual */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative hidden lg:block"
+            <motion.h1 
+              variants={fadeUp}
+              className="text-5xl md:text-6xl lg:text-7xl font-bold font-display mb-6 leading-[1.1]"
             >
-              <div className="relative">
-                {/* Main Card */}
-                <Card className="relative overflow-hidden border-2 shadow-2xl">
-                  <div className="aspect-square bg-gradient-to-br from-accent/30 via-background to-primary/10 p-8 flex items-center justify-center">
-                    {/* Map Preview */}
-                    <div className="relative w-full h-full rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/5 border border-border overflow-hidden">
-                      {/* Grid */}
-                      <div className="absolute inset-0" style={{
-                        backgroundImage: `linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px),
-                          linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px)`,
-                        backgroundSize: '30px 30px',
-                        opacity: 0.5
-                      }} />
-                      
-                      {/* User Pin */}
-                      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                        <div className="relative">
-                          <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg border-3 border-white">
-                            <MapPin className="w-6 h-6 text-primary-foreground" />
-                          </div>
-                          <div className="absolute inset-0 bg-primary/30 rounded-full animate-ping" />
-                        </div>
-                      </div>
-                      
-                      {/* Provider Pins */}
-                      {[
-                        { top: '25%', left: '30%' },
-                        { top: '35%', left: '70%' },
-                        { top: '65%', left: '25%' },
-                        { top: '70%', left: '65%' },
-                        { top: '20%', left: '55%' }
-                      ].map((pos, i) => (
-                        <div 
-                          key={i}
-                          className="absolute w-8 h-8 bg-secondary rounded-full flex items-center justify-center shadow-md animate-pulse"
-                          style={{ top: pos.top, left: pos.left, animationDelay: `${i * 0.2}s` }}
-                        >
-                          <CheckCircle2 className="w-4 h-4 text-secondary-foreground" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </Card>
-                
-                {/* Floating Stats Card */}
-                <Card className="absolute -bottom-6 -left-6 p-4 border-2 shadow-xl bg-background animate-float">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <Zap className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-semibold">Matched in 3s</div>
-                      <div className="text-xs text-muted-foreground">Average matching time</div>
-                    </div>
-                  </div>
-                </Card>
-                
-                {/* Floating Rating Card */}
-                <Card className="absolute -top-4 -right-4 p-4 border-2 shadow-xl bg-background animate-float" style={{ animationDelay: '1s' }}>
-                  <div className="flex items-center gap-2">
-                    <div className="flex -space-x-2">
-                      {[0,1,2].map((i) => (
-                        <div key={i} className="w-8 h-8 rounded-full bg-gradient-primary border-2 border-background" />
-                      ))}
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-1">
-                        {[0,1,2,3,4].map((i) => (
-                          <Star key={i} className="w-3 h-3 fill-secondary text-secondary" />
-                        ))}
-                      </div>
-                      <div className="text-xs text-muted-foreground">2,547 reviews</div>
-                    </div>
-                  </div>
-                </Card>
-              </div>
+              Your On-Demand
+              <span className="block gradient-text-hero">Cleaning & Moving</span>
+              <span className="block">Marketplace</span>
+            </motion.h1>
+            
+            <motion.p 
+              variants={fadeUp}
+              className="text-xl text-muted-foreground mb-10 leading-relaxed max-w-2xl mx-auto"
+            >
+              Connect with verified cleaning professionals and moving companies instantly. 
+              Real-time GPS tracking, secure payments, and guaranteed satisfaction.
+            </motion.p>
+            
+            <motion.div 
+              variants={fadeUp}
+              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+            >
+              <Button size="lg" asChild className="bg-gradient-primary hover:opacity-90 text-lg px-8 h-14 shadow-xl hover:shadow-glow transition-all duration-300 group">
+                <Link to="/search">
+                  <Sparkles className="mr-2 w-5 h-5" />
+                  Book Cleaning
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
+              <Button size="lg" asChild className="bg-gradient-secondary hover:opacity-90 text-lg px-8 h-14 shadow-xl hover:shadow-glow-secondary transition-all duration-300 group text-secondary-foreground">
+                <Link to="/search?service=moving">
+                  <Truck className="mr-2 w-5 h-5" />
+                  Book Moving
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
             </motion.div>
+            
+            {/* Stats Row */}
+            <motion.div 
+              variants={fadeUp}
+              className="flex flex-wrap justify-center gap-8 md:gap-12"
+            >
+              {stats.map((stat, index) => (
+                <div key={index} className="text-center">
+                  <div className="flex items-center justify-center gap-1 text-3xl md:text-4xl font-bold font-display text-foreground">
+                    {stat.value}
+                    {stat.suffix && <span className="text-secondary">{stat.suffix}</span>}
+                  </div>
+                  <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-24 px-4 bg-muted/30">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <Badge className="mb-4 bg-accent/10 text-accent border-accent/20">Our Services</Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold font-display mb-4">
+              One Platform,
+              <span className="block gradient-text">All Your Needs</span>
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Whether you need a spotless home or help with your next move, we've got you covered
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {services.map((service, index) => (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15, duration: 0.5 }}
+              >
+                <Card className="group relative overflow-hidden border-2 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 bg-background">
+                  {/* Gradient Overlay */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                  
+                  <div className="p-8 relative">
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      <service.icon className="w-8 h-8 text-white" />
+                    </div>
+                    
+                    <h3 className="text-2xl font-bold font-display mb-3">{service.title}</h3>
+                    <p className="text-muted-foreground mb-6">{service.description}</p>
+                    
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {service.features.map((feature, idx) => (
+                        <Badge key={idx} variant="secondary" className="bg-muted text-muted-foreground">
+                          {feature}
+                        </Badge>
+                      ))}
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Users className="w-4 h-4" />
+                        <span className="font-medium">{service.providers} providers</span>
+                      </div>
+                      
+                      <Button asChild variant="ghost" className="group/btn font-medium">
+                        <Link to="/search">
+                          Browse
+                          <ChevronRight className="ml-1 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-24 px-4 bg-accent/30">
+      <section className="py-24 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <Badge className="mb-4 bg-primary/10 text-primary border-0">Why SCOPIA</Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">
-              Smart Features for
-              <span className="block bg-gradient-primary bg-clip-text text-transparent">Modern Cleaning</span>
+            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">Why SCOPIA</Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold font-display mb-4">
+              Built Different.
+              <span className="block gradient-text">Built Better.</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Our platform uses advanced GPS technology and intelligent algorithms to connect you with the perfect cleaning professional
+              Our platform uses cutting-edge technology to deliver the best experience for customers and providers alike
             </p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: MapPin,
-                title: "GPS Matching",
-                description: "Real-time location-based provider matching with distance calculation"
-              },
-              {
-                icon: Shield,
-                title: "Verified Pros",
-                description: "Background-checked and certified cleaning professionals"
-              },
-              {
-                icon: Clock,
-                title: "Instant Booking",
-                description: "Book immediately or schedule for a convenient time"
-              },
-              {
-                icon: Award,
-                title: "Quality Guaranteed",
-                description: "Satisfaction guaranteed with our rating system"
-              }
-            ].map((feature, index) => (
-              <Card 
-                key={index} 
-                className="p-6 border-2 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group bg-background"
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <div className="w-12 h-12 rounded-2xl bg-gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <feature.icon className="w-6 h-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-              </Card>
+                <Card className="p-6 h-full border-2 hover:border-primary/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group bg-background">
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                    <feature.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-lg font-bold font-display mb-2">{feature.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* How It Works */}
-      <section className="py-24 px-4">
+      <section id="how-it-works" className="py-24 px-4 bg-muted/30">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <Badge className="mb-4 bg-secondary/10 text-secondary border-0">Simple Process</Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">How It Works</h2>
-            <p className="text-lg text-muted-foreground">Get your space cleaned in 3 easy steps</p>
+            <Badge className="mb-4 bg-secondary/10 text-secondary border-secondary/20">Simple Process</Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold font-display mb-4">
+              Book in 3 Easy Steps
+            </h2>
+            <p className="text-lg text-muted-foreground">Fast, simple, and reliable</p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              {
-                step: "01",
-                title: "Enable Location",
-                description: "Share your GPS location for accurate provider matching"
-              },
-              {
-                step: "02",
-                title: "Choose Provider",
-                description: "Browse nearby providers sorted by distance, rating, and availability"
-              },
-              {
-                step: "03",
-                title: "Book & Track",
-                description: "Confirm booking and track your provider in real-time"
-              }
-            ].map((step, index) => (
-              <div key={index} className="relative text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-primary text-primary-foreground text-xl font-bold mb-4 shadow-lg">
-                  {step.step}
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto relative">
+            {/* Connecting Line */}
+            <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-primary via-accent to-secondary" />
+            
+            {howItWorks.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15, duration: 0.5 }}
+                className="relative text-center"
+              >
+                <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-primary text-white text-2xl font-bold font-display mb-6 shadow-xl shadow-primary/30 z-10">
+                  {item.step}
                 </div>
-                <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-                <p className="text-muted-foreground">{step.description}</p>
-                {index < 2 && (
-                  <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-primary/40 to-transparent" />
-                )}
-              </div>
+                <h3 className="text-xl font-bold font-display mb-3">{item.title}</h3>
+                <p className="text-muted-foreground">{item.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Service Categories */}
-      <section className="py-24 px-4 bg-accent/30">
+      {/* Categories Preview */}
+      <section className="py-24 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <Badge className="mb-4 bg-primary/10 text-primary border-0">Services</Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">Cleaning Categories</h2>
-            <p className="text-lg text-muted-foreground">Professional cleaning for every need</p>
+            <Badge className="mb-4 bg-accent/10 text-accent border-accent/20">Categories</Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold font-display mb-4">
+              Services for Everyone
+            </h2>
+            <p className="text-lg text-muted-foreground">From homes to warehouses, we've got it all</p>
           </div>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: "Domestic", emoji: "🏠", desc: "Homes & apartments", count: "2,340 providers" },
-              { name: "Commercial", emoji: "🏢", desc: "Offices & retail", count: "1,890 providers" },
-              { name: "Industrial", emoji: "🏭", desc: "Warehouses & factories", count: "456 providers" },
-              { name: "Specialized", emoji: "✨", desc: "Deep clean & restoration", count: "892 providers" }
+              { name: "Residential", icon: Home, desc: "Homes & Apartments", count: "3,240", color: "from-primary to-primary-glow" },
+              { name: "Commercial", icon: Building2, desc: "Offices & Retail", count: "1,890", color: "from-accent to-purple-500" },
+              { name: "Local Moving", icon: Truck, desc: "Same City Moves", count: "1,456", color: "from-secondary to-orange-400" },
+              { name: "Packing", icon: Package, desc: "Professional Packing", count: "892", color: "from-success to-emerald-400" }
             ].map((category, index) => (
-              <Card 
+              <motion.div
                 key={index}
-                className="p-8 text-center border-2 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group bg-background"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.4 }}
               >
-                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform">{category.emoji}</div>
-                <h3 className="text-xl font-bold mb-2">{category.name}</h3>
-                <p className="text-muted-foreground text-sm mb-3">{category.desc}</p>
-                <Badge variant="outline" className="bg-accent/50 border-0 text-xs">
-                  {category.count}
-                </Badge>
-              </Card>
+                <Card className="p-8 text-center border-2 hover:border-primary/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group bg-background">
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                    <category.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold font-display mb-2">{category.name}</h3>
+                  <p className="text-muted-foreground text-sm mb-4">{category.desc}</p>
+                  <Badge variant="outline" className="bg-muted/50 border-0">
+                    {category.count} providers
+                  </Badge>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -340,24 +420,30 @@ const Index = () => {
       {/* CTA Section */}
       <section className="py-24 px-4">
         <div className="container mx-auto">
-          <Card className="relative overflow-hidden border-2 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-            <div className="relative p-12 lg:p-20 text-center">
-              <Badge className="mb-6 bg-primary/10 text-primary border-0">Get Started</Badge>
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-                Ready to Find Your
-                <span className="block bg-gradient-primary bg-clip-text text-transparent">Perfect Cleaner?</span>
+          <Card className="relative overflow-hidden border-0 bg-gradient-dark">
+            {/* Decorative Elements */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/20 rounded-full blur-3xl" />
+            
+            <div className="relative p-12 lg:p-20 text-center text-white">
+              <Badge className="mb-6 bg-white/10 border-white/20 text-white">Get Started Today</Badge>
+              <h2 className="text-4xl lg:text-5xl font-bold font-display mb-6">
+                Ready to Experience
+                <span className="block text-transparent bg-gradient-to-r from-primary-glow via-accent to-secondary bg-clip-text">
+                  The Future of Services?
+                </span>
               </h2>
-              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Join thousands of satisfied customers using GPS-powered matching
+              <p className="text-lg text-white/70 mb-10 max-w-2xl mx-auto">
+                Join over 100,000 customers who trust SCOPIA for their cleaning and moving needs
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" asChild className="bg-gradient-primary hover:opacity-90 text-base px-10 h-14 shadow-lg">
+                <Button size="lg" asChild className="bg-white text-foreground hover:bg-white/90 text-lg px-10 h-14 shadow-xl">
                   <Link to="/search">
-                    Start Searching
+                    Find Services Near Me
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild className="text-base px-10 h-14 border-2">
+                <Button size="lg" variant="outline" asChild className="text-lg px-10 h-14 border-2 border-white/30 bg-white/5 hover:bg-white/10 text-white">
                   <Link to="/providers">Become a Provider</Link>
                 </Button>
               </div>
@@ -372,42 +458,62 @@ const Index = () => {
           <div className="grid md:grid-cols-4 gap-10 mb-12">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-9 h-9 rounded-xl bg-gradient-primary flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 text-primary-foreground" />
+                <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xl font-bold">SCOPIA</span>
+                <span className="text-xl font-bold font-display gradient-text">SCOPIA</span>
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                The smart platform connecting you with verified cleaning professionals using GPS technology.
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Your on-demand marketplace for cleaning and moving services. GPS-powered matching, verified professionals, guaranteed satisfaction.
               </p>
             </div>
+            
             <div>
-              <h4 className="font-semibold mb-4">For Customers</h4>
-              <ul className="space-y-3 text-sm text-muted-foreground">
-                <li><Link to="/search" className="hover:text-foreground transition-colors">Find Services</Link></li>
-                <li><Link to="/how-it-works" className="hover:text-foreground transition-colors">How It Works</Link></li>
-                <li><Link to="/pricing" className="hover:text-foreground transition-colors">Pricing</Link></li>
+              <h4 className="font-semibold mb-4">Services</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><Link to="/search" className="hover:text-foreground transition-colors">Cleaning Services</Link></li>
+                <li><Link to="/search" className="hover:text-foreground transition-colors">Moving Services</Link></li>
+                <li><Link to="/search" className="hover:text-foreground transition-colors">Commercial Cleaning</Link></li>
+                <li><Link to="/search" className="hover:text-foreground transition-colors">Industrial Cleaning</Link></li>
               </ul>
             </div>
-            <div>
-              <h4 className="font-semibold mb-4">For Providers</h4>
-              <ul className="space-y-3 text-sm text-muted-foreground">
-                <li><Link to="/providers" className="hover:text-foreground transition-colors">Join as Provider</Link></li>
-                <li><Link to="/provider-benefits" className="hover:text-foreground transition-colors">Benefits</Link></li>
-                <li><Link to="/provider-faq" className="hover:text-foreground transition-colors">FAQ</Link></li>
-              </ul>
-            </div>
+            
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-3 text-sm text-muted-foreground">
+              <ul className="space-y-2 text-sm text-muted-foreground">
                 <li><Link to="/about" className="hover:text-foreground transition-colors">About Us</Link></li>
-                <li><Link to="/contact" className="hover:text-foreground transition-colors">Contact</Link></li>
+                <li><Link to="/providers" className="hover:text-foreground transition-colors">Become a Provider</Link></li>
                 <li><Link to="/careers" className="hover:text-foreground transition-colors">Careers</Link></li>
+                <li><Link to="/contact" className="hover:text-foreground transition-colors">Contact</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Support</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><Link to="/help" className="hover:text-foreground transition-colors">Help Center</Link></li>
+                <li><Link to="/safety" className="hover:text-foreground transition-colors">Safety</Link></li>
+                <li><Link to="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link></li>
+                <li><Link to="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; 2025 SCOPIA. All rights reserved.</p>
+          
+          <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-muted-foreground">
+              © 2025 SCOPIA. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6">
+              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Phone className="w-5 h-5" />
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <MessageCircle className="w-5 h-5" />
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Globe className="w-5 h-5" />
+              </a>
+            </div>
           </div>
         </div>
       </footer>
