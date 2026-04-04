@@ -19,12 +19,15 @@ import {
   MessageSquare,
   ChevronRight,
   Shield,
-  TrendingUp
+  TrendingUp,
+  Truck,
+  Navigation2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { LocationPicker } from "@/components/LocationPicker";
-import { MapPlaceholder } from "@/components/MapPlaceholder";
-import { calculateDistance, rankProviders, ProviderLocation } from "@/lib/geoUtils";
+import { LiveProviderMap } from "@/components/LiveProviderMap";
+import { useProviderSimulation } from "@/hooks/useProviderSimulation";
+import { calculateDistance } from "@/lib/geoUtils";
 
 const Search = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
