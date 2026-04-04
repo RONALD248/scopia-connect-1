@@ -177,7 +177,6 @@ const Search = () => {
       .filter(p => !minRating || p.rating >= minRating)
       .sort((a, b) => a.distance - b.distance);
   }, [providersWithDistance, selectedCategory, maxDistance, minRating]);
-  }));
 
   return (
     <div className="min-h-screen bg-background">
