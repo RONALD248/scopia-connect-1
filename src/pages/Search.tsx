@@ -135,31 +135,39 @@ const Search = () => {
     }
   ];
 
-  // Calculate distances and filter providers based on user location
+  // Use live provider simulation
+  const { providers: liveProviders } = useProviderSimulation(userLocation);
+
+  // Map live providers to display format with distance
   const providersWithDistance = useMemo(() => {
-    if (!userLocation) {
+    if (liveProviders.length === 0) {
       return baseProviders.map(p => ({ ...p, distance: Math.random() * 5 + 0.5 }));
     }
-
-    // Generate pseudo-random but consistent coordinates for each provider
-    return baseProviders.map((provider, index) => {
-      const seed = provider.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-      const angle = (seed % 360) * (Math.PI / 180);
-      const dist = 0.5 + (seed % 100) / 20; // 0.5 to 5.5 km
-      
-      const providerLat = userLocation.lat + (Math.sin(angle) * dist / 111);
-      const providerLon = userLocation.lon + (Math.cos(angle) * dist / (111 * Math.cos(userLocation.lat * Math.PI / 180)));
-      
-      const distance = calculateDistance(userLocation.lat, userLocation.lon, providerLat, providerLon);
-      
-      return {
-        ...provider,
-        latitude: providerLat,
-        longitude: providerLon,
-        distance
-      };
-    });
-  }, [userLocation]);
+    return liveProviders.map(p => ({
+      id: p.id,
+      name: p.name,
+      rating: p.rating,
+      reviews: p.reviews,
+      category: p.category === 'cleaning' ? 'Domestic' : 'Moving',
+      price: p.category === 'cleaning' ? 35 + Math.floor(p.rating * 5) : 80 + Math.floor(p.rating * 10),
+      available: p.available,
+      specialties: [p.service],
+      image: p.photo,
+      responseTimeMinutes: Math.ceil(p.distanceFromUser * 3),
+      verified: p.verified,
+      specializations: [p.service],
+      latitude: p.latitude,
+      longitude: p.longitude,
+      distance: p.distanceFromUser,
+      speed: p.speed,
+      status: p.status,
+      vehicle: p.vehicle,
+      plate: p.plate,
+      eta: p.eta,
+      heading: p.heading,
+      providerCategory: p.category,
+    }));
+  }, [liveProviders]);
 
   // Filter and sort providers
   const filteredProviders = useMemo(() => {
@@ -169,15 +177,6 @@ const Search = () => {
       .filter(p => !minRating || p.rating >= minRating)
       .sort((a, b) => a.distance - b.distance);
   }, [providersWithDistance, selectedCategory, maxDistance, minRating]);
-
-  // Map providers for the MapPlaceholder component
-  const mapProviders = filteredProviders.map(p => ({
-    id: p.id,
-    name: p.name,
-    latitude: (p as any).latitude || 0,
-    longitude: (p as any).longitude || 0,
-    available: p.available,
-    category: p.category
   }));
 
   return (
