@@ -423,9 +423,19 @@ const Search = () => {
                             size="sm" 
                             className="bg-gradient-primary hover:opacity-90"
                             disabled={!provider.available}
+                            asChild={provider.available}
                           >
-                            Book Now
-                            <ChevronRight className="w-4 h-4 ml-1" />
+                            {provider.available ? (
+                              <Link to={`/goods-tracking?provider=${provider.id}`}>
+                                Book & Track
+                                <ChevronRight className="w-4 h-4 ml-1" />
+                              </Link>
+                            ) : (
+                              <>
+                                Unavailable
+                                <ChevronRight className="w-4 h-4 ml-1" />
+                              </>
+                            )}
                           </Button>
                         </div>
                       </div>
