@@ -43,7 +43,7 @@ const Search = () => {
   const categories = [
     { id: "domestic", name: "Domestic", icon: Home, description: "Homes & Apartments" },
     { id: "commercial", name: "Commercial", icon: Building2, description: "Offices & Retail" },
-    { id: "industrial", name: "Industrial", icon: Factory, description: "Warehouses" },
+    { id: "moving", name: "Moving", icon: Truck, description: "Relocation & Delivery" },
     { id: "specialized", name: "Specialized", icon: Zap, description: "Deep Clean" }
   ];
 
